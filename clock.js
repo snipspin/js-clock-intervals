@@ -83,5 +83,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // start the clock
     setInterval(function(){
         clockInUse.tick();
-     }, 5);
+     }, 1000);
 });
