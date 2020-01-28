@@ -71,10 +71,10 @@ const currentTimeClock = {
         setRotation(domHandles.minute, rotation[currentTime.getMinutes()]);
 
         // handle 24 hour time
-        let hour = 0;        
-        if (currentTime.getHours() > 12)
+        let hour = currentTime.getHours();        
+        if (hour > 12)
         {
-            hour = currentTime.getHours() - 12;
+            hour -= 12;
         }
         // calculate the right index for the hour handle
         let index = hour*5 + (Math.floor(currentTime.getMinutes()/12));
