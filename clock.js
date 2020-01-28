@@ -13,7 +13,7 @@ const rotation = [
     300,306,312,318,324,330,336,342,348,354
 ];
 
-// this type of clock shows the time since it is active
+// this type of clock shows the time since it is active (clockInUse.clockType = timePassedClock;)
 const timePassedClock = {
     interval: 0,
     secondsPassed: 0,
@@ -61,9 +61,31 @@ const timePassedClock = {
     }
 };
 
+// this type of clock shows the current time (clockInUse.clockType = currentTimeClock;)
+const currentTimeClock = {
+    tick: function() {
+        // get the current date
+        let currentTime = new Date();
+        // rotate seconds and minute handle
+        setRotation(domHandles.second, rotation[currentTime.getSeconds()]);
+        setRotation(domHandles.minute, rotation[currentTime.getMinutes()]);
+
+        // handle 24 hour time
+        let hour = 0;        
+        if (currentTime.getHours() > 12)
+        {
+            hour = currentTime.getHours() - 12;
+        }
+        // calculate the right index for the hour handle
+        let index = hour*5 + (Math.floor(currentTime.getMinutes()/12));
+        // and then rotate it
+        setRotation(domHandles.hour, rotation[index]);
+    }
+};
+
 // controls which type clock to use
 let clockInUse = {
-    clockType : timePassedClock,
+    clockType : currentTimeClock,
     tick: function() { this.clockType.tick(); }
 };
 
